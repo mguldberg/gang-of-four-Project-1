@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Reservations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="main.js"></script>
+</head>
+
+<body>
+
+    <div class="jumbotron container">
+        <h1>Reservation Form</h1>
+    </div>
+
+    <div id="reservation" class="container">
+        <form>
+            <div class="form-row">
+                <div class="col">
+                    <label for="first">First Name</label>
+                    <input id="first" type="text" class="form-control" placeholder="First name">
+                </div>
+                <div class="col">
+                    <label for="last">Last Name</label>
+                    <input id="last" type="text" class="form-control" placeholder="Last name">
+                </div>
+                <div class="col">
+                    <label for="address">Street Address</label>
+                    <input id="address" type="text" class="form-control" placeholder="street address">
+                </div>
+
+            </div>
+            <br>
+            <div class="container">
+                <div id="reservation" class="form-row">
+                    <div class="row">
+                        <div class="col">
+                            <label for="city">City</label>
+                            <input id="city" type="Name" class="form-control" id="exampleFormControlInput1" placeholder="city">
+                        </div>
+                        <div class="col">
+                            <label for="state">State</label>
+                            <input id="state" type="Name" class="form-control" id="exampleFormControlInput1" placeholder="state">
+                        </div>
+                        <div class="col">
+                            <label for="zip">Zip</label>
+                            <input id="zip" type="Name" class="form-control" id="exampleFormControlInput1" placeholder="zip">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-row container">
+                <div class="row"></div>
+                <label for="exampleFormControlInput1">Email address</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <!--add email authentication here-->
+            </div>
+
+            <div class="row">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        Number of Attendees
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+                    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+                </div>
+            </div>
+
+            <div class="container">
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div id="mapDiv">
+                <!--need to keep this div for the purpose of the google maps to work-->
+                <div id="map" class="col card">
+                    <h1>the google map and directions will go here</h1>
+                </div>
+            </div>
+            <div id="weather" class="col card">
+                <h1>the weather will go here</h1>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
