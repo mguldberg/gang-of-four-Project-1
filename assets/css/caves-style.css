@@ -5,6 +5,7 @@ jumbotron{
 .display-4{
       padding-top:0px;
 }
+<<<<<<< HEAD
 h1{
     font-family: 'Homemade Apple', cursive;
 font-family: 'Rammetto One', cursive;
@@ -198,4 +199,27 @@ header h1 {
 }
 .alignright {
 	float: right;
+=======
+
+.top-margin { 
+    margin-top:50px; 
+}
+
+form {
+    width:100%;
+}
+
+h1 {
+    color: white;
+    font-size: 60px;
+    text-align:center;
+}
+
+.jumbotron{
+    background-color:black;
+    align-content:center;
+    justify-content:center;
+    align-items:center;
+
+>>>>>>> 7e35cddc134d911441bc9d1a83eef0885a0aba13
 }
