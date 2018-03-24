@@ -5,3 +5,47 @@ jumbotron{
 .display-4{
       padding-top:0px;
 }
+
+
+
+
+/*------ Goople Map CSS------ */
+#map {
+    height: 400px;
+    width: 400px;
+  }
+  /* Optional: Makes the sample page fill the window. */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #floating-panel {
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+  }
+ 
+
+  /* .work h3 {
+    border-bottom: 0;
+    background: #4aaaa5;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    padding: 15px;
+    width: 100%;
+    line-height: 30px;
+    margin-bottom: 0;
+    font-weight: 300;
+} */
+  /* -------------------------------- */
