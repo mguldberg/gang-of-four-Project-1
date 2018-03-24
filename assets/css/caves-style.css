@@ -1,22 +1,31 @@
-jumbotron{
-    padding-top: 60px 0 60px 0
-}
 
 .display-4{
       padding-top:0px;
 }
-h1{
+h1{font-size: 2.5rem;
     font-family: 'Homemade Apple', cursive;
 font-family: 'Rammetto One', cursive;
 font-family: 'Fontdiner Swanky', cursive;
   }
+  h3{
+    font-family: 'Homemade Apple', cursive;
+font-family: 'Rammetto One', cursive;
+font-family: 'Fontdiner Swanky', cursive;
+  }
+  /*address inline*/
+  .alignright:before{
+    content:" "; 
+    display:inline-block; 
+    width:150px;
+}
+
   /* Make the image fully responsive */
     
         .carousel-inner img {
             width: 100%;
-            height: 100%;
+            height: 50%;
         }
-
+       
 
 
 
@@ -26,22 +35,21 @@ font-family: 'Fontdiner Swanky', cursive;
   border: 0;
 }
 
-body {
-  background-color: #222;
-  font-family: Arial, Helvetica, sans-serif;
-}
 
+
+/*img {
+    width: 100%;
+    height: auto;
+}*/
 @font-face {
   font-family: 'Genericons';
-  src: url('fonts/genericon-regualr-webfont.woff')
-  format('woff'),
-   url('fonts/genericons-regular-webfont.eot')
-   format('truetype');
+  src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/genericons-regular-webfont.eot");
+  src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/genericons-regular-webfont.woff") format("woff"), url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/53819/genericons-regular-webfont.eot") format("truetype");
 }
 
 .container {
   margin: 50px auto;
-  width: 90%;
+  width: 95%;
 }
 
 header h1 {
@@ -52,8 +60,8 @@ header h1 {
 
 .accordion {
   background: #333;
-  width: 100%;
-  min-width: 800px;
+  width: 50%;
+  min-width: 500px;
   display: block;
   list-style-type: none;
   overflow: hidden;
@@ -95,7 +103,7 @@ header h1 {
 }
 
 .tab .content h1 {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
@@ -165,12 +173,12 @@ header h1 {
 
   .accordion {
     display: block;
-    min-width: 450px;
+    min-width: 200px;
     height: auto;
   }
 
   .tab .content {
-    width: 85%;
+    width: 95%;
   }
 
   .tab:hover {
@@ -199,3 +207,28 @@ header h1 {
 .alignright {
 	float: right;
 }
+
+/*@media (min-width: 320px) {
+   {
+    h1{
+    font-size: 0.5rem;
+  }
+  }
+}*/
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+  .accordion{
+    display: inline-block;
+  }
+
+  .footer-wrapper {
+    display: inline-grid;
+  }
+ }
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
