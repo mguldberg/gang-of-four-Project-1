@@ -15,7 +15,7 @@ $.ajax(settingsCurrent).done(function (wuResponse) {
     console.log(wuResponse);
 
     //current forecast
-    var newRow1 = $("<div class='row align-items-center' id='weather-child-current'>")
+    var newRow1 = $("<div class='row align-items-center mx-1' id='weather-child-current'>")
     var newCol1 = $("<div id='weather-col-1' class='col-6 p-0'>")
     var weatherImage = $("<img>");
     weatherImage.attr("src", wuResponse.current_observation.icon_url);
@@ -36,7 +36,7 @@ $.ajax(settingsCurrent).done(function (wuResponse) {
     //-------------------------------
     //
     var newCol2 = $("<div id='weather-col-2' class='col-6 p-0'>")
-    var tableVar = $('<table class="container table table-bordered">');
+    var tableVar = $('<table class=" table table-bordered m-0">');
     var tableRow = $("<tr>");
     console.log(moment().format("MM/DD/YYYY"));
     tableRow.append("<th class='p-0 text-center' colspan='2'>" + moment().format("MM/DD/YYYY") + "</th>");
@@ -111,8 +111,8 @@ $.ajax(settingsFuture).done(function (wuResponse) {
     }
 
     // future forecast 
-    var newRow1 = $("<div class='row align-items-center ' id='weather-child-current'>")
-    var newCol1 = $("<div id='weather-col-1' class='col-6 px-0'>")
+    var newRow1 = $("<div class='row align-items-center mx-1 ' id='weather-child-current'>")
+    var newCol1 = $("<div id='weather-col-1' class='col-6 p-0'>")
     var weatherImage = $("<img>");
     weatherImage.attr("src", wuResponse.forecast.txt_forecast.forecastday[reservationDate].icon_url);
     weatherImage.attr("class", " img-fluid")
@@ -131,8 +131,8 @@ $.ajax(settingsFuture).done(function (wuResponse) {
     // Wind:       /  actual-wind   |
     //-------------------------------
     //
-    var newCol2 = $("<div id='weather-col-2' class='col-6 px-0'>")
-    var tableVar = $('<table class="container table table-bordered">');
+    var newCol2 = $("<div id='weather-col-2' class='col-6 p-0'>")
+    var tableVar = $('<table class=" table table-bordered m-0">');
     var tableRow = $("<tr>");
     tableRow.append("<th class='p-0 text-center' colspan='2'>" + date + "</th>");
     tableVar.append(tableRow);
@@ -160,8 +160,8 @@ $.ajax(settingsFuture).done(function (wuResponse) {
     weatherLink.attr("href", "https://www.wunderground.com/forecast/us/"+stateToSearchOn+"/"+townToSearchOn);
     weatherLink.append(newRow1);
 
-    var newRow2 = $("<div class='row d-flex align-items-center bg-inverse ' id='weather-child-current'>")
-    var newCol1 = $("<div id='weather-underground-image'>")
+    var newRow2 = $("<div class='row' id='weather-logo-div'>")
+    var newCol1 = $("<div class='col' id='weather-underground-image'>")
     var weatherImage = $("<img>");
     weatherImage.attr("src", "assets/images/wundergroundLogo_4c_horz.jpg");
     weatherImage.attr("class", "img-fluid")
