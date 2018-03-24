@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Reservations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/caves-style.css" />
+
+    <!-- Added Moment JS -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row jumbotron jumbotron-fluid">
+            <h1 class="title">Reservation Form</h1>
+        </div>
+
+        <div class="row" id="reservation">
+            <form>
+                <div class="form-row form group">
+                    <div class="col">
+                        <label for="first">First Name</label>
+                        <input id="first" type="text" class="form-control" placeholder="First name">
+                    </div>
+                    <div class="col">
+                        <label for="last">Last Name</label>
+                        <input id="last" type="text" class="form-control" placeholder="Last name">
+                    </div>
+                    <div class="col">
+                        <label for="address">Street Address</label>
+                        <input id="address" type="text" class="form-control" placeholder="street address">
+                    </div>
+
+                </div>
+
+
+                <div class="form-row form-group">
+
+                    <div class="col">
+                        <label for="city">City</label>
+                        <input id="city" type="text" class="form-control" placeholder="city">
+                    </div>
+                    <div class="col">
+                        <label for="state">State</label>
+                        <input id="state" type="text" class="form-control" placeholder="state">
+                    </div>
+                    <div class="col">
+                        <label for="zip">Zip</label>
+                        <input id="zip" type="text" class="form-control" placeholder="zip">
+                    </div>
+                </div>
+
+                <div class="form-row form-group">
+                    <div class="col">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" id="email" placeholder="email">
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col">
+                        <label for="email">Number of Ticket</label>
+                        <input type="email" class="form-control" id="tickets" placeholder="number 1-10.  More than 10, please call for reservations">
+                    </div>
+                </div>
+
+                <div>
+                    <button id="submit-btn" type="button" class="btn btn-primary top-margin">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div id="mapDiv" class="col-md-8">
+                <div id="map" class="col card top-margin">
+                    <h3>the google map and directions will go here</h3>
+                    <!--need to keep this div for the purpose of the google maps to work-->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="weather" class="card top-margin">
+                    <!-- <h3>the weather will go here</h3> -->
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+        <script src="assets/javascript/javascript.js"></script>
+
+</body>
+
+</html>
