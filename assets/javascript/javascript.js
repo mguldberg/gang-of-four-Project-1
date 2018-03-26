@@ -17,6 +17,7 @@ function initMap() {
 
   $("#submit-btn").on("click", function (event) {
     event.preventDefault();
+    console.log("in on click handler for submit-btn");
     // Instantiate a directions service.
     var directionsService = new google.maps.DirectionsService;
 
