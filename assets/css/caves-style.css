@@ -4,61 +4,49 @@
   border:khaki;
   border-color: #777777;
   color: #f8f9fa;
+ 
  }
 
+.section{
+  font-size: 24px;
+  color: #333;
+  
+}
 
+.caption{
+  font-size: 14px; 
+}
 
+h4{
+  font-size: 18px
+}
 .card-title{
   font-size: 36px;
-
-font-family: 'Fontdiner Swanky', cursive;
+  font-family: 'Fontdiner Swanky', cursive;
   }
 
   h5{
-    
-font-family: 'Fontdiner Swanky', cursive;
+    font-family: 'Fontdiner Swanky', cursive;
+    font-size: 18px;
   }
   /*address inline*/
   .alignright:before{
     content:" "; 
     display:inline-block; 
-    width:150px;
+    width:100px;
 }
 #demo{
   margin: auto;
   max-width: 960px;
 
 }
+  
 
-  /* Make the image fully responsive */
-    
-        /* .carousel-inner img {
-            width: 100%;
-            height: 400px;
-           padding-left: 250px;
-           padding-right: 250px;
-        }*/
-        body{
-         background-color: #245900;
-background-image: url("https://www.transparenttextures.com/patterns/black-orchid.png");
-/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-        }
+body{
+  background-color: #245900;
+  background-image: url("https://www.transparenttextures.com/patterns/black-orchid.png");
+}
        
-
-
-
-/** {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}*/
-
-
-
-/*img {
-    width: 100%;
-    height: auto;
-}*/
 @font-face {
   font-family: 'Genericons';
   src: url("../fonts/genericons-regular-webfont.eot")format("truetype"),
@@ -67,7 +55,7 @@ background-image: url("https://www.transparenttextures.com/patterns/black-orchid
 
 .container {
   margin: 20px auto;
-  width: 95%;
+  width: 100%;
 }
 
 header h1 {
@@ -143,10 +131,11 @@ header h1 {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color:rgb(1, 61, 1);
   background-clip: border-box;
   border: 0px ;
-  border-radius: .25rem;
+  color: white;
+  align-content: center;
 }
 
 .card-body {
