@@ -178,7 +178,7 @@ $("#submit-btn").on("click", function (event) {
     var settingsFuture = {
       "async": true,
       "crossDomain": true,
-      "url": "http://api.wunderground.com/api/33c0d83ac9bce956/forecast10day/q/MN\\/" + townToSearchOn + ".json",
+      "url": "https://api.wunderground.com/api/33c0d83ac9bce956/forecast10day/q/MN\\/" + townToSearchOn + ".json",
       "method": "GET",
       "headers": {
         //     "Cache-Control": "no-cache",
@@ -316,7 +316,7 @@ var stateToSearchOn = "MN";
 var settingsCurrent = {
   "async": true,
   "crossDomain": true,
-  "url": "http://api.wunderground.com/api/33c0d83ac9bce956/forecast/conditions/q/" + stateToSearchOn + "\\/" + townToSearchOn + ".json",
+  "url": "https://api.wunderground.com/api/33c0d83ac9bce956/forecast/conditions/q/" + stateToSearchOn + "\\/" + townToSearchOn + ".json",
   "method": "GET",
   "headers": {
     //     "Cache-Control": "no-cache",
