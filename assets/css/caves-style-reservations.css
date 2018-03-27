@@ -30,3 +30,16 @@ h1 {
 .center{
     text-align: center;
 }
+
+/* a tags: sets what happens when mouse moves over
+links or what happens when a link is clicked */
+a, a:visited, a:active {
+    text-decoration: none;
+    color: blue
+  }
+
+a:hover {
+    background: lightblue ;
+    color: blue;
+    text-decoration: none;
+}

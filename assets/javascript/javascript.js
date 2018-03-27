@@ -1,6 +1,8 @@
+//setup global vars for google map API
 var home = ""
 var gangTour = "215 Wabasha Stree South, 55107"
 
+//google map API start
 function initMap() {
   var markerArray = [];
 
@@ -11,6 +13,12 @@ function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 13,
     center: { lat: 44.936097, lng: -93.086751 }
+  });
+
+  var marker = new google.maps.Marker({
+    position: { lat: 44.936097, lng: -93.086751 },
+    map: map,
+    title: 'Wabasha Caves Museum'
   });
 
   // Create a renderer for directions and bind it to the map.
@@ -32,7 +40,7 @@ function initMap() {
     calculateAndDisplayRoute(
       directionsDisplay, directionsService, markerArray, stepDisplay, map);
     console.log("in on change");
-  
+
   };
 
   document.getElementById('submit-btn').addEventListener('click', onChangeHandler);
@@ -63,33 +71,17 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService,
       directionsDisplay.setDirections(response);
       var myRoute = response.routes[0].legs[0];
       var distance = response.routes[0].legs[0].distance;
-      var distanceDiv = $("<div id='distanceDisplay'>")
+      var distanceDiv = $("#distance-to-display");
+      distanceDiv.empty();
       distanceDiv.prepend("<p> Distance to Caves: " + distance.text + "</p>");
       $("#mapDiv").prepend(distanceDiv);
       console.log(distance);
-      // attachInstructionText(
-      //   stepDisplay, myRoute.steps[i].instructions, map);
-
-      //showSteps(response, markerArray, stepDisplay, map);
     } else {
       // window.alert('Directions request failed due to ' + status);
     }
   });
 }
 
-//   function showSteps(directionResult, markerArray, stepDisplay, map) {
-//     // For each step, place a marker, and add the text to the marker's infowindow.
-//     // Also attach the marker to an array so we can keep track of it and remove it
-//     // when calculating new routes.
-//     var myRoute = directionResult.routes[0].legs[0];
-//     for (var i = 0; i < myRoute.steps.length; i++) {
-//       var marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
-//       marker.setMap(map);
-//       marker.setPosition(myRoute.steps[i].start_location);
-//       attachInstructionText(
-//           stepDisplay, marker, myRoute.steps[i].instructions, map);
-//     }
-//   }
 
 function attachInstructionText(stepDisplay, marker, text, map) {
   google.maps.event.addListener(marker, 'click', function () {
@@ -116,11 +108,12 @@ var database = firebase.database();
 
 
 
-
+//submit button handler for reservations page
 $("#submit-btn").on("click", function (event) {
   event.preventDefault();
   console.log("in on click handler for submit-btn");
 
+  //api tp check if email is valid or not
   var pizza = {
     "async": true,
     "crossDomain": true,
@@ -132,6 +125,8 @@ $("#submit-btn").on("click", function (event) {
 
   $.ajax(pizza).done(function (response) {
     console.log(response);
+
+    //load up all form data to local variables
     var userFirst = $("#first").val().trim();
     var userLast = $("#last").val().trim();
     var userAddress = $("#address").val().trim();
@@ -145,7 +140,7 @@ $("#submit-btn").on("click", function (event) {
     var userDate = $("#date").val().trim();
     console.log("date: " + $("#date").val().trim());
 
-    //event name input/date?
+    //setup firebase variables
     var userRef = database.ref("/userDB");
     var eventRef = database.ref("/eventDB");
     var newUserRef = userRef.push();
@@ -167,9 +162,9 @@ $("#submit-btn").on("click", function (event) {
       email: userEmail,
       tickets: userTickets,
       date: userDate
-      //which event tickets were bought for
     })
-    //Clear Form
+
+    //Clear Form after checking if email is valid
     $("#first").val("");
     $("#last").val("");
     $("#address").val("");
@@ -179,7 +174,7 @@ $("#submit-btn").on("click", function (event) {
     $("#email").val("");
     $("#tickets").val("");
 
-    // var date = "04/01/2018"
+    //get the future forecast
     var settingsFuture = {
       "async": true,
       "crossDomain": true,
@@ -191,32 +186,41 @@ $("#submit-btn").on("click", function (event) {
       }
     }
 
+    //change weather div to show forecast for future date IF it is within the 10 day forecast window
     $.ajax(settingsFuture).done(function (wuResponse) {
       console.log(wuResponse);
 
+      //init the date fields used for display and 
       var momentDate = moment(userDate, 'YYYY-MM-DD');
-
-      var jsDate = momentDate.toDate();
-      var jsDate2 = momentDate.format('DD');
+      var jsDate = momentDate.format('DD');
       var displayDate = momentDate.format('MM-DD-YYYY');
-      var reservationDate = 0;
       console.log(jsDate);
-      console.log(jsDate2);
 
+      //used when looping through to find the future forecast - sets to index of found date
+      var reservationDate = 0;
+
+
+      // loop through to find index to future forecast array - check date from reservation form 
+      //  against date in future forecast array
       for (i = 0; i < wuResponse.forecast.simpleforecast.forecastday.length; i++) {
         console.log(wuResponse.forecast.simpleforecast.forecastday[i].date.day);
-        if (wuResponse.forecast.simpleforecast.forecastday[i].date.day == jsDate2) {
+        if (wuResponse.forecast.simpleforecast.forecastday[i].date.day == jsDate) {
           reservationDate = i;
           console.log("find date: " + reservationDate);
         }
 
       }
 
+      //return if future date and don't display new weather forecast
+      if (reservationDate == 0) {
+        return;
+      }
+
       // future forecast 
       var newRow1 = $("<div class='row align-items-center mx-1 ' id='weather-child-current'>")
       var newCol1 = $("<div id='weather-col-1' class='col-6 p-0'>")
       var weatherImage = $("<img>");
-      weatherImage.attr("src", wuResponse.forecast.txt_forecast.forecastday[reservationDate].icon_url);
+      weatherImage.attr("src", wuResponse.forecast.simpleforecast.forecastday[reservationDate].icon_url);
       weatherImage.attr("class", " img-fluid")
       weatherImage.attr("style", "width:100%");
       weatherImage.attr("alt", "Forecast Conditions for " + townToSearchOn + ", " + stateToSearchOn);
@@ -273,13 +277,14 @@ $("#submit-btn").on("click", function (event) {
       newCol1.append(weatherImage);
       newRow2.append(newCol1);
       weatherLink.append(newRow2);
+      $("#current-conditions-download-link").hide(300);
+      $("#weather").empty();
       $("#weather").prepend(weatherLink);
-      $("#current-conditions-download-link").hide();
 
     });
 
 
-
+  // handle error return from email validator(pizza API)
   }).fail(function (error) {
     swal("Error!", "That isn't an email!", "error");
   });
@@ -319,61 +324,150 @@ var settingsCurrent = {
   }
 }
 
+//get the current weather
 $.ajax(settingsCurrent).done(function (wuResponse) {
   console.log(wuResponse);
 
-  //current forecast
-  var newRow1 = $("<div class='row align-items-center mx-1' id='weather-child-current'>")
-  var newCol1 = $("<div id='weather-col-1' class='col-6 p-0'>")
-  var weatherImage = $("<img>");
-  weatherImage.attr("src", wuResponse.current_observation.icon_url);
-  weatherImage.attr("class", "img-fluid");
-  weatherImage.attr("style", "width:100%");
-  weatherImage.attr("alt", "Current Conditions for " + townToSearchOn + ", " + stateToSearchOn);
-  weatherImage.attr("title", "Current Conditions for " + townToSearchOn + ", " + stateToSearchOn);
-  newCol1.append(weatherImage);
-  newRow1.append(newCol1);
+  // //current forecast
+  // var newRow1 = $("<div class='row align-items-center mx-1' id='weather-child-current'>")
+  // var newCol1 = $("<div id='weather-col-1' class='col-6 p-0'>")
+  // var weatherImage = $("<img>");
+  // weatherImage.attr("src", wuResponse.current_observation.icon_url);
+  // weatherImage.attr("class", "img-fluid");
+  // weatherImage.attr("style", "width:100%");
+  // weatherImage.attr("alt", "Current Conditions for " + townToSearchOn + ", " + stateToSearchOn);
+  // weatherImage.attr("title", "Current Conditions for " + townToSearchOn + ", " + stateToSearchOn);
+  // newCol1.append(weatherImage);
+  // newRow1.append(newCol1);
 
-  //create table for weather Div information
+  // //create table for weather Div information
+  // // if clicked takes you to the current conditions
+  // //-------------------------------
+  // // Currently:  /  weather text  |
+  // // Location:   /  townToSearchOn|
+  // // Temp:       /  actual-temp   |
+  // // Wind:       /  actual-wind   |
+  // //-------------------------------
+  // //
+  // var newCol2 = $("<div id='weather-col-2' class='col-6 p-0'>")
+  // var tableVar = $('<table class=" table table-bordered m-0">');
+  // var tableRow = $("<tr>");
+  // console.log(moment().format("MM/DD/YYYY"));
+  // tableRow.append("<th class='p-0 text-center' colspan='2'>" + moment().format("MM/DD/YYYY") + "</th>");
+  // tableVar.append(tableRow);
+  // var tableRow = $("<tr>");
+  // tableRow.append("<th class='p-0'>Currently:</th>");
+  // tableRow.append("<td class='p-0'>" + wuResponse.current_observation.weather + '</td>');
+  // tableVar.append(tableRow);
+  // var tableRow = $("<tr>");
+  // tableRow.append("<th class='p-0'>City:</th>");
+  // tableRow.append("<td class='p-0'>" + townToSearchOn + ", " + stateToSearchOn + '</td>');
+  // tableVar.append(tableRow);
+  // var tableRow = $("<tr>");
+  // tableRow.append("<th class='p-0'>Temp:</th>");
+  // tableRow.append("<td class='p-0'>" + wuResponse.current_observation.temp_f + "&#176 F</td>");
+  // tableVar.append(tableRow);
+  // var tableRow = $("<tr>");
+  // tableRow.append("<th class='p-0'>Wind:</th>");
+  // tableRow.append("<td class='p-0'>" + wuResponse.current_observation.wind_dir + " @ " + wuResponse.current_observation.wind_mph + " mph</td>");
+  // tableVar.append(tableRow);
+  // newCol2.append(tableVar);
+  // newRow1.append(newCol2);
+
+
+  /////////////
+
+  //current forecast
+  // larger layout
+  //------------------------------------------------------
+  // current day  /  next day    /   day after tomorrow  |
+  //------------------------------------------------------
+  //
+  //create smaller tables underneith each days forecast day
   // if clicked takes you to the current conditions
+  //
   //-------------------------------
-  // Currently:  /  weather text  |
-  // Location:   /  townToSearchOn|
-  // Temp:       /  actual-temp   |
-  // Wind:       /  actual-wind   |
+  //       weather image          |
+  //      date of forecast        |
+  // High Temp   /  Low Temp      |
   //-------------------------------
   //
-  var newCol2 = $("<div id='weather-col-2' class='col-6 p-0'>")
-  var tableVar = $('<table class=" table table-bordered m-0">');
-  var tableRow = $("<tr>");
-  console.log(moment().format("MM/DD/YYYY"));
-  tableRow.append("<th class='p-0 text-center' colspan='2'>" + moment().format("MM/DD/YYYY") + "</th>");
-  tableVar.append(tableRow);
-  var tableRow = $("<tr>");
-  tableRow.append("<th class='p-0'>Currently:</th>");
-  tableRow.append("<td class='p-0'>" + wuResponse.current_observation.weather + '</td>');
-  tableVar.append(tableRow);
-  var tableRow = $("<tr>");
-  tableRow.append("<th class='p-0'>City:</th>");
-  tableRow.append("<td class='p-0'>" + townToSearchOn + ", " + stateToSearchOn + '</td>');
-  tableVar.append(tableRow);
-  var tableRow = $("<tr>");
-  tableRow.append("<th class='p-0'>Temp:</th>");
-  tableRow.append("<td class='p-0'>" + wuResponse.current_observation.temp_f + "&#176 F</td>");
-  tableVar.append(tableRow);
-  var tableRow = $("<tr>");
-  tableRow.append("<th class='p-0'>Wind:</th>");
-  tableRow.append("<td class='p-0'>" + wuResponse.current_observation.wind_dir + " @ " + wuResponse.current_observation.wind_mph + " mph</td>");
-  tableVar.append(tableRow);
-  newCol2.append(tableVar);
-  newRow1.append(newCol2);
+  var newRow2 = $("<div class='row align-items-center mx-1' id='weather-child-current'>")
 
   //create var for entire div to go inside so clicking it opens a new window
   var weatherLink = $('<a id="current-conditions-download-link" target="_blank">');
   weatherLink.attr("href", wuResponse.current_observation.ob_url);
-  weatherLink.append(newRow1);
+  weatherLink.append(newRow2);
 
-  var newRow2 = $("<div class='row' id='weather-logo-div'>")
+  var newCol1 = $("<div id='weather-row-2-col-1' class='col-4 p-0'>")
+  var weatherImage = $("<img>");
+  weatherImage.attr("src", wuResponse.forecast.simpleforecast.forecastday[0].icon_url);
+  weatherImage.attr("class", "img-fluid");
+  weatherImage.attr("style", "width:100%");
+  weatherImage.attr("alt", "Future Conditions for " + townToSearchOn + ", " + stateToSearchOn);
+  weatherImage.attr("title", "Future Conditions for " + townToSearchOn + ", " + stateToSearchOn);
+  newCol1.append(weatherImage);
+  
+  var tableVar = $('<table class=" table table-bordered m-0 text-center">');
+  var tableRow = $("<tr>");
+  console.log(moment().format("MM/DD/YYYY"));
+  tableRow.append("<th class='p-0 text-center' colspan='2'>" + moment().format("MM/DD") + "</th>");
+  tableVar.append(tableRow);
+  var tableRow = $("<tr>");
+  tableRow.append("<th class='p-0'>" + wuResponse.forecast.simpleforecast.forecastday[0].high.fahrenheit + "&#176</th>");
+  tableRow.append("<th class='p-0'>" + wuResponse.forecast.simpleforecast.forecastday[0].low.fahrenheit + "&#176</th>");
+  tableVar.append(tableRow);
+  newCol1.append(tableVar);
+  newCol1.prepend(weatherImage);
+  newRow2.append(newCol1);
+  
+
+  var newCol2 = $("<div id='weather-row-2-col-2' class='col-4 p-0'>")
+  var weatherImage = $("<img>");
+  weatherImage.attr("src", wuResponse.forecast.simpleforecast.forecastday[2].icon_url);
+  weatherImage.attr("class", "img-fluid");
+  weatherImage.attr("style", "width:100%");
+  weatherImage.attr("alt", "Future Conditions for " + townToSearchOn + ", " + stateToSearchOn);
+  weatherImage.attr("title", "Future Conditions for " + townToSearchOn + ", " + stateToSearchOn);
+
+  var tableVar = $('<table class=" table table-bordered m-0 text-center">');
+  var tableRow = $("<tr>");
+  console.log(moment().format("MM/DD/YYYY"));
+  tableRow.append("<th class='p-0 text-center' colspan='2'>" + moment().add(1, 'd').format("MM/DD") + "</th>");
+  tableVar.append(tableRow);
+  var tableRow = $("<tr>");
+  tableRow.append("<th class='p-0'>" + wuResponse.forecast.simpleforecast.forecastday[1].high.fahrenheit + "&#176</th>");
+  tableRow.append("<th class='p-0'>" + wuResponse.forecast.simpleforecast.forecastday[1].low.fahrenheit + "&#176</th>");
+  tableVar.append(tableRow);
+  newCol2.append(tableVar);
+  newCol2.prepend(weatherImage);
+  newRow2.append(newCol2);
+  
+  var newCol3 = $("<div id='weather-row-2-col-3' class='col-4 p-0'>")
+  var weatherImage = $("<img>");
+  weatherImage.attr("src", wuResponse.forecast.simpleforecast.forecastday[2].icon_url);
+  weatherImage.attr("class", "img-fluid");
+  weatherImage.attr("style", "width:100%");
+  weatherImage.attr("alt", "Future Conditions for " + townToSearchOn + ", " + stateToSearchOn);
+  weatherImage.attr("title", "Future Conditions for " + townToSearchOn + ", " + stateToSearchOn);
+  
+  var tableVar = $('<table class=" table table-bordered m-0 text-center">');
+  var tableRow = $("<tr>");
+  console.log(moment().format("MM/DD/YYYY"));
+  tableRow.append("<th class='p-0 text-center' colspan='2'>" + moment().add(2, 'd').format("MM/DD") + "</th>");
+  tableVar.append(tableRow);
+  var tableRow = $("<tr>");
+  tableRow.append("<th class='p-0'>" + wuResponse.forecast.simpleforecast.forecastday[2].high.fahrenheit + "&#176</th>");
+  tableRow.append("<th class='p-0'>" + wuResponse.forecast.simpleforecast.forecastday[2].low.fahrenheit + "&#176</th>");
+  tableVar.append(tableRow);
+  newCol3.append(tableVar);
+  newCol3.prepend(weatherImage);
+  newRow2.append(newCol3);
+  
+  weatherLink.append(newRow2);
+
+  // 3rd column - day after tomorrow
+  var newRow3 = $("<div class='row' id='weather-logo-div'>")
   var newCol1 = $("<div class='col' id='weather-underground-image'>")
   var weatherImage = $("<img>");
   weatherImage.attr("src", "assets/images/wundergroundLogo_4c_horz.jpg");
@@ -381,8 +475,9 @@ $.ajax(settingsCurrent).done(function (wuResponse) {
   weatherImage.attr("alt", "Weather Underground Logo");
   weatherImage.attr("title", "Weather Underground Logo");
   newCol1.append(weatherImage);
-  newRow2.append(newCol1);
-  weatherLink.append(newRow2);
+  newRow3.append(newCol1);
+  weatherLink.append(newRow3);
+  $("#weather").empty();
   $("#weather").prepend(weatherLink);
 });
 
