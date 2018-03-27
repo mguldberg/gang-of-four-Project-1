@@ -8,7 +8,7 @@
  }
 
 .section{
-  font-size: 24px;
+  font-size: 20px;
   color: #333;
   
 }
@@ -28,6 +28,7 @@ h4{
   h5{
     font-family: 'Fontdiner Swanky', cursive;
     font-size: 18px;
+    color:white;
   }
   /*address inline*/
   .alignright:before{
@@ -37,8 +38,7 @@ h4{
 }
 #demo{
   margin: auto;
-  max-width: 960px;
-
+  /* max-width: 960px; */
 }
   
 
@@ -62,6 +62,7 @@ header h1 {
   color: #fff;
   margin-bottom: 10px;
   text-align: center;
+  opacity: 0%;
 }
 
 .accordion {
@@ -131,11 +132,13 @@ header h1 {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color:rgb(1, 61, 1);
   background-clip: border-box;
   border: 0px ;
   color: white;
   align-content: center;
+  opacity: 0%;
+  background-color: rgba(245, 245, 245, 0) !important; 
+  /* makes background transparent in css */
 }
 
 .card-body {
@@ -143,6 +146,7 @@ header h1 {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 0.25rem;
+  
 }
 
 .social a:after,
@@ -166,11 +170,6 @@ header h1 {
   /*margin-left: 85px;*/
 /*}*/
 
-.youtube a:before,
-.youtube a:after {
-  content: '\f213';
-  background-color: #ff0000;
-}
 /*.youtube a:after {*/
   /*background-color: #ff0000;*/
 /*}*/
@@ -193,7 +192,27 @@ header h1 {
   /*background-color: #3b5998;*/
 /*}*/
 
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+}
 
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
 
 @media (max-width: 950px) {
   .container {
@@ -237,10 +256,16 @@ header h1 {
 }
 /*address*/
 .alignleft {
-	float: left;
+  float: left;
+  font-size: 16px;
+  color: white;
 }
 .alignright {
-	float: right;
+  float: right;
+  font-size: 16px;
+  color: white;
+  text-align: right;
+  
 }
 
 @media (min-width: 376px) {
